@@ -108,12 +108,12 @@ ipv6_prefix=''
 ipv6_gateway=''
 
 # public network info
-real_ipv4=$(wget --timeout=3 -qO- https://ipv4-api.speedtest.net/getip)
-real_ipv6=$(wget --timeout=3 -qO- https://ipv6-api.speedtest.net/getip)
+real_ipv4=$(timeout 2 wget --timeout=2 -qO- https://ipv4-api.speedtest.net/getip)
+real_ipv6=$(timeout 2 wget --timeout=2 -qO- https://ipv6-api.speedtest.net/getip)
 
 # network interface
-#ipv4_interface=$(ip route get 8.8.8.8 2>/dev/null | awk '{print $5}')
-#ipv6_interface=$(ip -6 route | grep default | awk '{print $5}')
+ipv4_interface=$(ip route get 8.8.8.8 2>/dev/null | awk '{print $5}')
+ipv6_interface=$(ip -6 route | grep default | awk '{print $5}')
 
 # network V4 info
 if [ -n "$ipv4_interface" ]; then
